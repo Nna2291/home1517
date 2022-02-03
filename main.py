@@ -1,7 +1,12 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import request
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def op():
+    return 'higyui'
 
 
 @app.route('/postjson', methods=['POST'])
@@ -12,4 +17,4 @@ def postJsonHandler():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

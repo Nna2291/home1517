@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import "nullstyle.css";
+
+* {
+  font-family: "Noto Sans";
+  font-style: normal;
+}
+
+html {
+  font-size: 1.2vw;
+  color: #CCC
+}
+
+body {
+  font-size: 1rem;
+  background: #1C2533;
+}
+
+div.main {
+  width: 100%;
+}
+
+div.container {
+  margin-top: 1rem;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header {
+  text-align: center;
+}
+
+div.line {
+  margin: 1rem 0 1rem 0;
+  height: 0.1rem;
+  width: 31rem;
+  background: #CCC;
+  margin-left: 17rem;
+}
+
+a {
+  text-decoration: none;
+  color: #CCC;
+}
+
+a.back {
+  position: fixed;
+  top: 1rem;
+  left: 2rem;
+  background: url('../../img/arrow.png') left no-repeat;
+  padding: 1rem 0.5rem 1rem 2rem;
+  border-radius: 2rem;
+}
+
+a.back:hover {
+  box-shadow: 0 0 1rem 0 rgba(0,0,0,0.3);
+  transform: translateY(-0.1rem);
+}
+
+h1 {
+  margin-top: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+div.title {
+  margin: 1.5rem 0 0 0;
+  text-align: center;
+}
+
+div.preferences {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background: #2D3B52;
+  border-radius: 3rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+button:hover {
+  background: #364763;
+}
+
+button:active {
+  transform: translateY(0.5rem);
+}
+
+div.button {
+  height: 80%;
+  align-items: center;
+  justify-content:space-around;
+  display: flex;
+  flex-direction: column;
+}
+
+img.door {
+  transform: translateY(0.9rem);
+}
+
+img.other {
+
+  transform: translateY(0.5rem);
+}
+
+img {
+  height: 10rem;
+  width: 10rem;
+}
+
+div.floors {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-around;
+}

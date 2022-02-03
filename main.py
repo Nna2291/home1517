@@ -30,10 +30,14 @@ def index():
 
 @app.route('/queue')
 def queue():
+    global queue
     if queue:
-        event = queue[::-1].pop()
-        return event
-    return redirect('/')
+        q = jsonify(queue)
+        queue = []
+        return q
+    else:
+        sleep(5)
+        return 0
 
 
 @app.route('door_opened')
@@ -81,7 +85,7 @@ def temperature_limit(value):
 @app.route('/lights/<int:light>')
 def lights(light):
     status['lights'] = light
-    return '/'
+    return rediect('/')
 
 
 if __name__ == '__main__':

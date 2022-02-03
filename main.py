@@ -1,15 +1,12 @@
-from flask import Flask, jsonify
+from time import sleep
+
+from flask import Flask, jsonify, redirect, render_template
 from flask import request
 
 app = Flask(__name__)
 queue = []
 temp_history = []
 status = {'vent': -1, 'heat': -1, 'auto_light': 1, 'temp': -1, 'hum': -1, 'temp_limit': 30, 'lights': 0}
-
-
-@app.route('/')
-def op():
-    return 'higyui'
 
 
 @app.route('/postjson', methods=['POST'])
@@ -29,8 +26,9 @@ def postJsonHandler():
 
 @app.route('/')
 def index():
-    return f"t = {status['temp']}, h = {status['hum']}"
-    #return render_template('home.html')
+    # return f"t = {status['temp']}, h = {status['hum']}"
+    # return render_template('home.html')
+    return jsonify({'message': 'koko'})
 
 
 @app.route('/queue')
@@ -45,7 +43,7 @@ def queue():
         return 0
 
 
-@app.route('door_opened')
+@app.route('/door_opened')
 def alert_door_opened():
     pass
 
@@ -53,8 +51,8 @@ def alert_door_opened():
 @app.route('/temperature_and_humidity', methods=['GET', 'POST'])
 def temp_and_hum():
     global temp_history, status
-    if request.metod == 'POST':
-        temp, hum = float(request.form['temp'], request.form['hum'])
+    if request.method == 'POST':
+        temp, hum = float(request.form['temp']), float(request.form['hum'])
         if len(temp_history) >= 4:
             temp_history = [temp] + temp_history[:3]
             if temp_history[-1] - temp > 5 and temp > status['temp_limit']:
@@ -90,7 +88,7 @@ def temperature_limit(value):
 @app.route('/lights/<int:light>')
 def lights(light):
     status['lights'] = light
-    return rediect('/')
+    return redirect('/')
 
 
 if __name__ == '__main__':

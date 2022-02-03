@@ -6,42 +6,37 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 String data;
-byte data1[10];
 
 void setup() {
-  Wire.begin(8);
-  Wire.onReceive(receiveEvent);
-  Wire.onRequest(sendRqst);
-  Serial.begin(9600);
+  Wire.begin(8);                /* join i2c bus with address 8 */
+  Wire.onReceive(receiveEvent); /* register receive event */
+  Wire.onRequest(requestEvent); /* register request event */
+  Serial.begin(9600);           /* start serial comm. */
+  Serial.println("I am I2C Slave");
   dht.begin();
 }
 
 void loop() {
-  float temp;
-  float hum;
+
+}
+
+void receiveEvent(int howMany) {
+  String jo;
+  while (0 < Wire.available()) {
+    char c = Wire.read();      /* receive byte as a character */
+    jo += c;           /* print the character */
+  }
+  Serial.println(jo);             /* to newline */
+}
+// function that executes whenever data is requested from master
+void requestEvent() {
+  float temp, hum;
   temp, hum = check_dht();
   data = String(hum);
-  data.getBytes(data1, sizeof(data1));
-  Serial.println(data.substring(0, 2));
+  Wire.write(data.c_str());  /*send string on request */
 }
-
-void sendRqst() {
-  Wire.write(data1, 10);
-}
-
-void receiveEvent(){
-  String ans;
-  while (0 < Wire.available()){
-    char c = Wire.read();
-    ans += c;
-  }
-  Serial.println(ans);
-}
-
-
 
 float check_dht() {
-  delay(200);
   float humidity = dht.readHumidity();
   float temperature = dht.readTemperature();
   return temperature, humidity;

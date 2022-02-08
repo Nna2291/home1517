@@ -1,50 +1,76 @@
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/css/style.css">
     <title>PredProf SmartHouse</title>
-  </head>
-  <body>
-    <div class="main">
-      <div class="container">
+</head>
+<body>
+<div class="main">
+    <div class="container">
         <header>
-          <h4>Добро пожаловать в систему умного дома</h4>
-          <h1>PredProf SmartHouse</h1>
+            <h4>Добро пожаловать в систему умного дома</h4>
+            <h1>PredProf SmartHouse</h1>
         </header>
         <div class="preferences">
-          <div class="light">
-            <a href="lights.html">
-              <button type="button" name="light">
-                <div class="button light">
-                  <img src="../static/img/light.png" alt="Image Not Found" class="light">
-                  <h3>Освещение</h3>
-                </div>
-              </button>
-          </a>
-          </div>
-          <div class="door">
-            <a href="#">
-              <button type="button" name="door">
-                <div class="button door">
-                  <img src="../static/img/door.png" alt="Image Not Found" class="door">
-                  <h3>Дверь</h3>
-                </div>
-              </button>
-          </a>
-          </div>
-          <div class="other">
-            <a href="#">
-              <button type="button" name="other" href="google.com">
-                  <div class="button other">
-                  <img src="../static/img/other.png" alt="Image Not Found" class="other">
-                  <h3>Другие устройства</h3>
-                  </div>
-              </button>
-            </a>
-          </div>
+            <h1 id="hum"></h1>
+            <div class="light">
+                <a href="lights.html">
+                    <button type="button" name="light">
+                        <div class="button light">
+                            <img src="../static/img/light.png" alt="Image Not Found" class="light">
+                            <h3>Освещение</h3>
+                        </div>
+                    </button>
+                </a>
+            </div>
+            <div class="door">
+                <a href="#">
+                    <button type="button" name="door">
+                        <div class="button door">
+                            <img src="../static/img/door.png" alt="Image Not Found" class="door">
+                            <h3>Дверь</h3>
+                        </div>
+                    </button>
+                </a>
+            </div>
+            <div class="other">
+                <a href="#">
+                    <button type="button" name="other" href="google.com">
+                        <div class="button other">
+                            <img src="../static/img/other.png" alt="Image Not Found" class="other">
+                            <h3>Другие устройства</h3>
+                        </div>
+                    </button>
+                </a>
+            </div>
+
+
+            <h1 id="temp"></h1>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+<script>
+    function gett() {
+        $.ajax({
+            url: "/get_data",
+            type: "get",
+
+            success: function (response) {
+                $('#hum').text(response['hum']);
+                $('#temp').text(response['temp']);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        gett();
+        setInterval('gett()', 500);
+    });
+</script>
+</body>
 </html>

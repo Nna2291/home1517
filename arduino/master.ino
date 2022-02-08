@@ -1,11 +1,26 @@
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
 #include <Wire.h>
-const char* ssid = "AKADO-7F98"; // имя вашей wifi точки доступа
-const char* password = "DAKTDJGEMEVD"; // пароль wifi
-const IPAddress host(192, 168, 1, 13);
-const int httpPort = 5000;
+#include <DHT.h>
+#define DHTPIN 5
 
+#define DHTTYPE DHT11   // DHT 11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+const char *ssid = "sch1517";       // имя вашей wifi точки доступа
+const char *password = "Gfhjvyfz "; // пароль wifi
+const IPAddress host(172, 16, 100, 240);
+const int httpPort = 5000;
+String hum;
+String temps;
+
+float return_th()
+{
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+  return temperature, humidity;
+}
 
 void setup()
 {
@@ -20,20 +35,28 @@ void setup()
   {
     delay(500);
   }
-  pinMode(LED_BUILTIN, OUTPUT);
+  dht.begin();
 }
 
 void loop()
 {
   String c;
-  delay(5000);
+  delay(1000);
   WiFiClient client;
   if (!client.connect(host, httpPort))
   {
     Serial.println("connection failed");
     return;
   }
-  client.print(String("GET / ") + "HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
+  float f = dht.readTemperature(true);
+  if (isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+  }
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+  Serial.println(humidity);
+  Serial.println(temperature);
+  client.print(String("GET /dick?hum=" + String(humidity) + "&jio=" + String(temperature)) + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
 
   unsigned long timeout = millis();
 
@@ -57,12 +80,13 @@ void loop()
   Serial.println(c.substring(139));
   Serial.println();
   Wire.beginTransmission(8); /* begin with device address 8 */
-  Wire.write("Hello Slave");  /* sends hello string */
+  Wire.write("Hello Slave"); /* sends hello string */
   Wire.endTransmission();    /* stop transmitting */
-  Wire.requestFrom(8, 15); /* request & read data of size 9 from slave */
+  Wire.requestFrom(8, 15);   /* request & read data of size 9 from slave */
   String jo;
-  while (Wire.available()) {
-    char j = Wire.read();/* read data received from slave */
+  while (Wire.available())
+  {
+    char j = Wire.read(); /* read data received from slave */
     jo += j;
   }
   Serial.println(jo);

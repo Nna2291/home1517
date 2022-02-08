@@ -6,7 +6,7 @@ from flask import request
 app = Flask(__name__)
 queue = []
 temp_history = []
-status = {'vent': -1, 'heat': -1, 'auto_light': 1, 'temp': -1, 'hum': -1, 'temp_limit': 30, 'lights': 0}
+status = {'vent': -1, 'heat': -1, 'auto_light': 1, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 30, 'lights': 0}
 
 
 @app.route('/postjson', methods=['POST'])
@@ -27,8 +27,22 @@ def postJsonHandler():
 @app.route('/')
 def index():
     # return f"t = {status['temp']}, h = {status['hum']}"
-    # return render_template('home.html')
-    return jsonify({'message': 'koko'})
+    return render_template('home.html')
+    # return jsonify({'message': 'koko'})
+
+
+@app.route('/get_data')
+def data():
+    return jsonify(status)
+
+
+@app.route('/dick')
+def dick():
+    hum = request.args.get('hum')
+    jio = request.args.get('jio')
+    status['temp'] = float(jio)
+    status['hum'] = float(hum)
+    return 'ok'
 
 
 @app.route('/queue')

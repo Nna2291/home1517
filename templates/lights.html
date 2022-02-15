@@ -9,32 +9,53 @@
       <div class="container">
         <header>
           <a href="home.html" class="back">
-            Назад
+            <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
+            <h4>Назад</h4>
           </a>
           <a href="home.html">
             <h1>PredProf SmartHouse</h1>
           </a>
-          <div class="line">
-          </div>
         </header>
         <div class="title">
           <h2>Освещение</h2>
         </div>
         <div class="floors">
-          <div class="first">
-            <h3>Первый этаж</h3>
+          <div class="floor first">
+            <h4>Первый этаж</h4>
             <div class="scheme">
-
+              <img src="../static/img/first_floor.png" alt="Image Not Found">
+            </div>
+            <div class="floor_preferences">
+              <div class="choose_color">
+                <h4>Выберите цвет</h4>
+                <button class="choose_color"><img src="../static/img/light.png" alt="Image Not Found"></button>
+                <input type="color" id="1">
+              </div>
+              <div class="auto_light">
+                <h4>Автоматическое включение/выключение света</h4>
+                <input type="checkbox" class="toggle" checked>
+              </div>
             </div>
           </div>
-          <div class="second">
-            <h3>Второй этаж</h3>
+          <div class="floor second">
+            <h4>Второй этаж</h4>
             <div class="scheme">
-
+              <img src="../static/img/second_floor.png" alt="Image Not Found">
             </div>
-          </div>
+            <div class="floor_preferences">
+              <div class="choose_color">
+                <h4>Выберите цвет</h4>
+                <button class="choose_color"><img src="../static/img/light.png" alt="Image Not Found"></button>
+                <input type="color" id="2">
+              </div>
+              <div class="auto_light">
+                <h4>Автоматическое включение/выключение света</h4>
+                <input type="checkbox" class="toggle" checked>
+              </div>
+            </div>
         </div>
       </div>
     </div>
+    <script src="../static/js/scripts.js"></script>
   </body>
 </html>

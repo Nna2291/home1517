@@ -88,11 +88,11 @@ h3 {
 }
 
 div.title {
-  padding: 1rem 0 1rem 0;
+  padding: 0.5rem 3rem 1rem 3rem;
   text-align: center;
   font-weight: 400;
   background-color: #2E2E36;
-  width: 20rem;
+  width: fit-content;
   margin: 0 auto 0 auto;
   border-bottom-left-radius: 3rem;
   border-bottom-right-radius: 3rem;
@@ -261,5 +261,58 @@ input[type="checkbox"].toggle:checked {
 }
 
 input[type="checkbox"].toggle:checked:after {
-  transform: translateX(0.9rem);
+  transform: translateX(0.95rem);
+}
+
+div.open_door {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 3rem;
+}
+
+button.open_door {
+  padding: 0 1rem 0 1rem;
+  width: fit-content;
+  height: 3rem;
+  margin-left: 1.5rem;
+}
+
+button.open_door:active {
+  transform: translateY(0.2rem);
+}
+
+div.preferences.door {
+  display: flex;
+  flex-direction: column;
+  height: 12rem;
+  justify-content: space-around;
+}
+
+div.door_condition {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+div.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 1rem auto 0 auto;
+  height: 1.5rem;
+}
+
+div.option:first-child {
+  margin-top: 0;
+}
+
+div.value {
+  display: flex;
+  align-items: center;
+}
+
+div.preferences.other {
+    display: block;
 }

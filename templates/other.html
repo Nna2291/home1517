@@ -2,17 +2,19 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../static/css/style.css">
+    
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <title>PredProf SmartHouse</title>
   </head>
   <body>
     <div class="main">
       <div class="container">
         <header>
-          <a href="home.html" class="back">
+          <a href="/" class="back">
             <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
             <h4>Назад</h4>
           </a>
-          <a href="home.html">
+          <a href="/">
             <h1>PredProf SmartHouse</h1>
           </a>
         </header>
@@ -23,14 +25,14 @@
             <div class="option">
                 <h4>Температура</h4>
                 <div class="value">
-                    <h3>21</h3>
+                    <h3 id="temp">21</h3>
                     <h3>°C</h3>
                 </div>
             </div>
             <div class="option">
                 <h4>Влажность</h4>
                 <div class="value">
-                    <h3>55</h3>
+                    <h3 id="hum">55</h3>
                     <h3>%</h3>
                 </div>
             </div>
@@ -56,6 +58,26 @@
             </div>
         </div>
     </div>
-    <script src="../static/js/scripts.js"></script>
+    <script>
+      function gett() {
+        $.ajax({
+            url: "/get_data",
+            type: "get",
+
+            success: function (response) {
+                $('#hum').text(response['hum']);
+                $('#temp').text(response['temp']);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        gett();
+        setInterval('gett()', 500);
+    });
+    </script>
   </body>
 </html>

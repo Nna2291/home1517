@@ -10,3 +10,23 @@ function changeColor(event) {
         colorButton[+event.target.id - 1].style.background = event.target.value
     }
 }
+
+function gett() {
+        $.ajax({
+            url: "/get_data",
+            type: "get",
+
+            success: function (response) {
+                $('#hum').text(response['hum']);
+                $('#temp').text(response['temp']);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        gett();
+        setInterval('gett()', 500);
+    });

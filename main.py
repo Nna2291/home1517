@@ -29,7 +29,17 @@ def index():
     # return f"t = {status['temp']}, h = {status['hum']}"
     return render_template('home.html')
     # return jsonify({'message': 'koko'})
+@app.route('/door')
+def door():
+    return render_template('door.html')
 
+@app.route('/lights')
+def light():
+    return render_template('lights.html')
+
+@app.route('/other')
+def other():
+    return render_template('other.html')
 
 @app.route('/get_data')
 def data():

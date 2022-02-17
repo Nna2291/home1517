@@ -14,9 +14,8 @@
             <h1>PredProf SmartHouse</h1>
         </header>
         <div class="preferences">
-            <h1 id="hum"></h1>
             <div class="light">
-                <a href="lights.html">
+                <a href="/lights">
                     <button type="button" name="light">
                         <div class="button light">
                             <img src="../static/img/light.png" alt="Image Not Found" class="light">
@@ -26,7 +25,7 @@
                 </a>
             </div>
             <div class="door">
-                <a href="door.html">
+                <a href="/door">
                     <button type="button" name="door">
                         <div class="button door">
                             <img src="../static/img/door.png" alt="Image Not Found" class="door">
@@ -36,7 +35,7 @@
                 </a>
             </div>
             <div class="other">
-                <a href="other.html">
+                <a href="/other">
                     <button type="button" name="other" href="google.com">
                         <div class="button other">
                             <img src="../static/img/other.png" alt="Image Not Found" class="other">
@@ -45,32 +44,9 @@
                     </button>
                 </a>
             </div>
-
-
-            <h1 id="temp"></h1>
         </div>
     </div>
 </div>
-<script>
-    function gett() {
-        $.ajax({
-            url: "/get_data",
-            type: "get",
-
-            success: function (response) {
-                $('#hum').text(response['hum']);
-                $('#temp').text(response['temp']);
-            },
-            error: function (xhr) {
-                //Do Something to handle error
-            }
-        });
-    }
-
-    $(document).ready(function () {
-        gett();
-        setInterval('gett()', 500);
-    });
 </script>
 </body>
 </html>

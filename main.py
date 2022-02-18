@@ -7,12 +7,22 @@ app = Flask(__name__)
 queue = []
 temp_history = []
 status = {'vent': 0, 'heat': -1, 'auto_light': 1, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 30, 'lights': 0,
-          'red': 0, 'green': 0, 'blue': 255, 'light_val': 0, 'light_status': 0, 'door': 0, 'z': 0}
+          'red': 0, 'green': 0, 'blue': 0, 'light_val': 0, 'light_status': 0, 'door': 0, 'z': 0}
 
 
 @app.route('/')
 def index():
     return render_template('home.html')
+
+
+@app.route('/cool', methods=["POST"])
+def cool():
+    if request.json['cool']:
+        status['vent'] = 1
+    else:
+        status['vent'] = 0
+    print(status['vent'])
+    return 'ok'
 
 
 @app.route('/dick2')
@@ -46,6 +56,15 @@ def other():
 @app.route('/get_data')
 def data():
     return jsonify(status)
+
+
+@app.route('/change_color', methods=["POST"])
+def colch():
+    tt = request.json
+    status['red'] = tt['r']
+    status['blue'] = tt['b']
+    status['green'] = tt['g']
+    return 'oka'
 
 
 @app.route('/dick')

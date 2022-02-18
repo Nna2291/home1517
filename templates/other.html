@@ -1,25 +1,25 @@
 <html lang="ru" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../static/css/style.css">
-    
+
     <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <title>PredProf SmartHouse</title>
-  </head>
-  <body>
-    <div class="main">
-      <div class="container">
+</head>
+<body>
+<div class="main">
+    <div class="container">
         <header>
-          <a href="/" class="back">
-            <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
-            <h4>Назад</h4>
-          </a>
-          <a href="/">
-            <h1>PredProf SmartHouse</h1>
-          </a>
+            <a href="/" class="back">
+                <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
+                <h4>Назад</h4>
+            </a>
+            <a href="/">
+                <h1>PredProf SmartHouse</h1>
+            </a>
         </header>
         <div class="title">
-          <h2>Другие устройства</h2>
+            <h2>Другие устройства</h2>
         </div>
         <div class="preferences other">
             <div class="option">
@@ -53,31 +53,39 @@
             <div class="option">
                 <h4>Охлаждение</h4>
                 <div class="value">
-                    <input type="checkbox" class="toggle">
+                    <input type="checkbox" id="cool" class="toggle">
                 </div>
             </div>
         </div>
     </div>
     <script>
-      function gett() {
-        $.ajax({
-            url: "/get_data",
-            type: "get",
 
-            success: function (response) {
-                $('#hum').text(response['hum']);
-                $('#temp').text(response['temp']);
-            },
-            error: function (xhr) {
-                //Do Something to handle error
-            }
+        function gett() {
+            $.ajax({
+                url: "/cool",
+                type: "POST",
+                data: JSON.stringify({cool: $('#cool').prop('checked')}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+            });
+            $.ajax({
+                url: "/get_data",
+                type: "get",
+
+                success: function (response) {
+                    $('#hum').text(response['hum']);
+                    $('#temp').text(response['temp']);
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            gett();
+            setInterval('gett()', 500);
         });
-    }
-
-    $(document).ready(function () {
-        gett();
-        setInterval('gett()', 500);
-    });
     </script>
-  </body>
+</body>
 </html>

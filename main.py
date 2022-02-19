@@ -38,13 +38,24 @@ def dick2():
     return jsonify(status)
 
 
-@app.route('/door')
+@app.route('/door', methods=["POST", "GET"])
 def door():
+    if request.method == "POST":
+        if status["door"] == 1:
+            status["door"] = 0
+        else:
+            status["door"] = 1
+        return jsonify({'door_stat': status["door"]})
     return render_template('door.html')
 
 
 @app.route('/lights')
 def light():
+    if status["auto_light"] == 1:
+        if status["light_val"] < 600:
+            status["light_status"] = 0
+        else:
+            status["light_status"] = 1
     return render_template('lights.html')
 
 

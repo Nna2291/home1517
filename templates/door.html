@@ -1,36 +1,37 @@
 <html lang="ru" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../static/css/style.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
     <title>PredProf SmartHouse</title>
-  </head>
-  <body>
-    <div class="main">
-      <div class="container">
+</head>
+<body>
+<div class="main">
+    <div class="container">
         <header>
-          <a href="/" class="back">
-            <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
-            <h4>Назад</h4>
-          </a>
-          <a href="/">
-            <h1>PredProf SmartHouse</h1>
-          </a>
+            <a href="/" class="back">
+                <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
+                <h4>Назад</h4>
+            </a>
+            <a href="/">
+                <h1>PredProf SmartHouse</h1>
+            </a>
         </header>
         <div class="title">
-          <h2>Дверь</h2>
+            <h2>Дверь</h2>
         </div>
         <div class="preferences door">
             <div class="open_door">
                 <h3>Открытие/закрытие двери</h3>
-                <button class="open_door">Открыть/закрыть</button>
+                <button id="open" class="open_door">Открыть/закрыть</button>
             </div>
             <div class="door_condition">
                 <h3>Состояние двери</h3>
                 <!-- сюда можно вводить всякие сообщения, по типу, "кто-то постучался в дверь" или "правильный стук в дверь, но неправильный пароль" -->
-                <h4>Дверь закрыта, неправильно введен пароль</h4>
+                <h4 id="status"></h4>
             </div>
         </div>
     </div>
-    <script src="../static/js/scripts.js"></script>
-  </body>
+    <script src="../static/js/door.js"></script>
+</body>
 </html>

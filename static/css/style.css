@@ -152,13 +152,23 @@ div.floors {
   background-color: #24242A;
   padding: 2rem;
   border-radius: 3rem;
-  height: 27rem;
 }
 
 div.floor {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+div.scheme_images {
+  display: flex;
+  width: 24rem;
+  justify-content: space-between;
+}
+
+div.scheme h4 {
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 div.scheme img {
@@ -212,14 +222,18 @@ div.floor_preferences h4 {
   font-style: normal;
 }
 
-div.auto_light {
-  margin-top: 1rem;
+div.auto_light, div.light_on {
+  margin-top: 0.5rem;
   display: flex;
   justify-content: left;
   align-items: center;
 }
 
-div.auto_light input[type="checkbox"].toggle {
+div.auto_light {
+  margin-top: 3rem;
+}
+
+div.auto_light input[type="checkbox"].toggle, div.light_on input[type="checkbox"].toggle {
   margin-left: 1.5rem;
 }
 

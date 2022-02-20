@@ -25,8 +25,8 @@ def cool():
     return 'ok'
 
 
-@app.route('/dick2')
-def dick2():
+@app.route('/first_floor')
+def first_floor():
     hum = request.args.get('hum')
     temp = request.args.get('temp')
     try:
@@ -78,8 +78,8 @@ def colch():
     return 'oka'
 
 
-@app.route('/dick')
-def dick():
+@app.route('/second_floor')
+def second_floor():
     jio = request.args.get('light_val')
     status['light_val'] = float(jio)
     return jsonify(status)

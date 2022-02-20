@@ -53,7 +53,7 @@ void loop()
     Serial.println("connection failed");
     return;
   }
-  client.print(String("GET /dick2?hum=" + humidity + "&temp=" + temperature + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n"));
+  client.print(String("GET /first_floor?hum=" + humidity + "&temp=" + temperature + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n"));
 
   unsigned long timeout = millis();
 

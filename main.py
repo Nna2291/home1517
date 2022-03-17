@@ -21,7 +21,11 @@ def cool():
         status['vent'] = 1
     else:
         status['vent'] = 0
-    print(status['vent'])
+
+    if request.json['heat']:
+        status['heat'] = 1
+    else:
+        status['heat'] = 0
     return 'ok'
 
 

@@ -47,7 +47,7 @@
             <div class="option">
                 <h4>Обогрев</h4>
                 <div class="value">
-                    <input type="checkbox" class="toggle">
+                    <input type="checkbox" id="heat" class="toggle">
                 </div>
             </div>
             <div class="option">
@@ -64,7 +64,7 @@
             $.ajax({
                 url: "/cool",
                 type: "POST",
-                data: JSON.stringify({cool: $('#cool').prop('checked')}),
+                data: JSON.stringify({cool: $('#cool').prop('checked'), heat: $('#heat').prop('checked')}),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
             });

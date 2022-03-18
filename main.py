@@ -19,12 +19,16 @@ def index():
 def cool():
     if request.json['cool']:
         status['vent'] = 1
-    else:
+    elif not request.json['cool']:
         status['vent'] = 0
+    return 'ok'
 
+
+@app.route('/heat', methods=["POST"])
+def heat():
     if request.json['heat']:
         status['heat'] = 1
-    else:
+    elif not request.json['heat']:
         status['heat'] = 0
     return 'ok'
 

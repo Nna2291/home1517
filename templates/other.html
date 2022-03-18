@@ -64,7 +64,14 @@
             $.ajax({
                 url: "/cool",
                 type: "POST",
-                data: JSON.stringify({cool: $('#cool').prop('checked'), heat: $('#heat').prop('checked')}),
+                data: JSON.stringify({cool: $('#cool').prop('checked')}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+            });
+            $.ajax({
+                url: "/heat",
+                type: "POST",
+                data: JSON.stringify({heat: $('#heat').prop('checked')}),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
             });

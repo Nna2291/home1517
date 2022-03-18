@@ -160,10 +160,14 @@ div.floor {
   justify-content: space-around;
 }
 
-div.scheme_images {
+div.floor:nth-child(2) {
+  margin-top: 2rem;
+}
+
+div.scheme_image {
   display: flex;
+  justify-content: center;
   width: 24rem;
-  justify-content: space-between;
 }
 
 div.scheme h4 {
@@ -172,8 +176,8 @@ div.scheme h4 {
 }
 
 div.scheme img {
-  width: 10.5rem;
-  height: 10.5rem;
+  width: 9rem;
+  height: 9rem;
 }
 
 div.floor_preferences {
@@ -230,7 +234,7 @@ div.auto_light, div.light_on {
 }
 
 div.auto_light {
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 div.auto_light input[type="checkbox"].toggle, div.light_on input[type="checkbox"].toggle {

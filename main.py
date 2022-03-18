@@ -6,8 +6,8 @@ from flask import request
 app = Flask(__name__)
 queue = []
 temp_history = []
-status = {'vent': 0, 'heat': -1, 'auto_light': 1, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 30, 'lights': 0,
-          'red': 0, 'green': 0, 'blue': 0, 'light_val': 0, 'light_status': 0, 'door': 0, 'z': 0}
+status = {'vent': 1, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 25, 'lights1': 0, 'lights2': 0,
+          'red1': 0, 'green1': 0, 'blue1': 0, 'red2': 0, 'green2': 0, 'blue2': 0, 'light_val': 0, 'light_status': 0, 'door': 0}
 
 
 @app.route('/')
@@ -51,11 +51,6 @@ def door():
 
 @app.route('/lights')
 def light():
-    if status["auto_light"] == 1:
-        if status["light_val"] < 600:
-            status["light_status"] = 0
-        else:
-            status["light_status"] = 1
     return render_template('lights.html')
 
 
@@ -69,12 +64,58 @@ def data():
     return jsonify(status)
 
 
-@app.route('/change_color', methods=["POST"])
-def colch():
+@app.route('/change_color1', methods=["POST"])
+def colch1():
     tt = request.json
-    status['red'] = tt['r']
-    status['blue'] = tt['b']
-    status['green'] = tt['g']
+    status['red1'] = tt['r']
+    status['blue1'] = tt['b']
+    status['green1'] = tt['g']
+    return 'oka'
+
+@app.route('/change_color2', methods=["POST"])
+def colch2():
+    tt = request.json
+    status['red2'] = tt['r']
+    status['blue2'] = tt['b']
+    status['green2'] = tt['g']
+    return 'oka'
+
+
+@app.route('/change_light1', methods=["POST"])
+def change_light1():
+    tt = request.json
+    if tt['light']:
+        status['lights1'] = 1
+    else:
+        status['lights1'] = 0
+    return 'oka'
+
+@app.route('/change_light2', methods=["POST"])
+def change_light2():
+    tt = request.json
+    if tt['light']:
+        status['lights2'] = 1
+    else:
+        status['lights2'] = 0
+    return 'oka'
+
+
+@app.route('/change_auto1', methods=["POST"])
+def change_auto1():
+    tt = request.json
+    if tt['auto']:
+        status['auto_light1'] = 1
+    else:
+        status['auto_light1'] = 0
+    return 'oka'
+
+@app.route('/change_auto2', methods=["POST"])
+def change_auto2():
+    tt = request.json
+    if tt['auto']:
+        status['auto_light2'] = 1
+    else:
+        status['auto_light2'] = 0
     return 'oka'
 
 
@@ -84,12 +125,15 @@ def second_floor():
     status['light_val'] = float(jio)
     hum = request.args.get('hum')
     temp = request.args.get('temp')
+    light_status = request.args.get('ls')
     try:
         status['hum'] = float(hum)
         status['temp'] = float(temp)
+        status['light_status'] = int(light_status)
     except ValueError:
         status['hum'] = 0
         status['temp'] = 0
+        status['light_status'] = 0
     return jsonify(status)
 
 

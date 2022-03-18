@@ -44,7 +44,6 @@
     void loop()
     {
       String c;
-      delay(500);
       WiFiClient client;
       if (!client.connect(host, httpPort))
       {
@@ -55,7 +54,7 @@
       float temp = dht.readTemperature();
       Serial.println(hum);
       Serial.println(temp);
-      client.print("GET /second_floor?light_val=" + String(light_val) + "&hum=" + String(hum, 2) + "&temp=" + String(temp, 2) + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
+      client.print("GET /second_floor?light_val=" + String(light_val) + "&hum=" + String(hum, 2) + "&temp=" + String(temp, 2) + "&ls=" + String(light_status) + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
       unsigned long timeout = millis();
       while (client.available() == 0)
       {
@@ -79,7 +78,8 @@
       int red = doc["red"];
       int green = doc["green"];
       int blue = doc["blue"];
-      int auto_light = doc["auto_light"];
+      int auto_light = doc["auto_light2"];
+      int lights_on = doc["lights2"];
       int light_status = doc["light_status"];
       int vent_status = doc["vent"];
       int heat_status = doc["heat"];
@@ -88,7 +88,7 @@
 
       heat(heat_status);
 
-      lights(red, green, blue, light_status, auto_light);
+      light_status = lights(red, green, blue, light_status, auto_light, lights_on);
     }
 
     void heat(int h_s) {
@@ -115,25 +115,34 @@
     }
 
 
-    void lights(int r, int g, int b, int l_s, int a_l)
+    void lights(int r, int g, int b, int l_s, int a_l, int l_on)
     {
       light_val = analogRead(A0);
-
       if (a_l == 1)
       {
-        if (light_val < 750) {
+        if (light_val < 800) {
           l_s = 0;
         }
         else {
           l_s = 1;
         }
       }
+      else if (l_on == 1)
+      {
+        l_s = 1;
+      }
+      else
+      {
+        l_s = 0;
+      }
+
       Wire.beginTransmission(8);
       Wire.write(r);
       Wire.write(g);
       Wire.write(b);
       Wire.write(l_s);
       Wire.endTransmission();
+      return l_s;
     }
 
     String return_th()

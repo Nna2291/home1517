@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -70,36 +71,7 @@
         </div>
       </div>
     </div>
-    <script src="../static/js/scripts.js">
-    </script>
-    <script>
-      function componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-      }
-
-      function rgbToHex(r, g, b) {
-        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-      }
-
-      function gett() {
-          $.ajax({
-              url: "/get_data",
-              type: "get",
-
-              success: function (response) {
-                  $('input[type=color]')[0].value = rgbToHex(response['red'], response['green'], response['blue']);
-              },
-              error: function (xhr) {
-                  //Do Something to handle error
-              }
-          });
-      }
-
-      $(document).ready(function () {
-          gett();
-          setInterval('gett()', 500);
-      });
+    <script src="../static/js/lights.js">
     </script>
   </body>
 </html>

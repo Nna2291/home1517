@@ -35,14 +35,6 @@ def heat():
 
 @app.route('/first_floor')
 def first_floor():
-    hum = request.args.get('hum')
-    temp = request.args.get('temp')
-    try:
-        status['hum'] = float(hum)
-        status['temp'] = float(temp)
-    except ValueError:
-        status['hum'] = 0
-        status['temp'] = 0
     return jsonify(status)
 
 
@@ -90,6 +82,14 @@ def colch():
 def second_floor():
     jio = request.args.get('light_val')
     status['light_val'] = float(jio)
+    hum = request.args.get('hum')
+    temp = request.args.get('temp')
+    try:
+        status['hum'] = float(hum)
+        status['temp'] = float(temp)
+    except ValueError:
+        status['hum'] = 0
+        status['temp'] = 0
     return jsonify(status)
 
 

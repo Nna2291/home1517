@@ -56,6 +56,7 @@ def light():
             status["light_status"] = 0
         else:
             status["light_status"] = 1
+    print(status['red'], status['green'], status['blue'])
     return render_template('lights.html')
 
 

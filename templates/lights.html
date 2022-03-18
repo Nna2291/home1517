@@ -23,10 +23,9 @@
         <div class="floors">
           <div class="floor">
             <div class="scheme">
-              <h4>Схема дома</h4>
-              <div class="scheme_images">
+              <h4>Первый этаж</h4>
+              <div class="scheme_image">
                 <img src="../static/img/first_floor.png" alt="Image Not Found">
-                <img src="../static/img/second_floor.png" alt="Image Not Found">
               </div>
             </div>
             <div class="floor_preferences">
@@ -37,17 +36,70 @@
               </div>
               <div class="light_on">
                 <h4>Включить/выключить свет</h4>
-                <input type="checkbox" class="toggle" checked>
+                <input type="checkbox" class="toggle" name="light" id="1" checked>
               </div>
               <div class="auto_light">
                 <h4>Автоматическое включение/выключение света</h4>
-                <input type="checkbox" class="toggle" checked>
+                <input type="checkbox" class="toggle" name="auto" id="1" checked>
+              </div>
+            </div>
+          </div>
+          <div class="floor">
+            <div class="scheme">
+              <h4>Второй этаж</h4>
+              <div class="scheme_image">
+                <img src="../static/img/second_floor.png" alt="Image Not Found">
+              </div>
+            </div>
+            <div class="floor_preferences">
+              <div class="choose_color">
+                <h4>Выберите цвет</h4>
+                <button class="choose_color"><img src="../static/img/light.png" alt="Image Not Found"></button>
+                <input type="color" id="2">
+              </div>
+              <div class="light_on">
+                <h4>Включить/выключить свет</h4>
+                <input type="checkbox" class="toggle" name="light" id="2" checked>
+              </div>
+              <div class="auto_light">
+                <h4>Автоматическое включение/выключение света</h4>
+                <input type="checkbox" class="toggle" name="auto" id="2" checked>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script src="../static/js/scripts.js"></script>
+    <script src="../static/js/scripts.js">
+    </script>
+    <script>
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      }
+
+      function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+      }
+
+      function gett() {
+          $.ajax({
+              url: "/get_data",
+              type: "get",
+
+              success: function (response) {
+                  $('input[type=color]')[0].value = rgbToHex(response['red'], response['green'], response['blue']);
+              },
+              error: function (xhr) {
+                  //Do Something to handle error
+              }
+          });
+      }
+
+      $(document).ready(function () {
+          gett();
+          setInterval('gett()', 500);
+      });
+    </script>
   </body>
 </html>

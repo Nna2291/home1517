@@ -98,7 +98,6 @@ def change_light2():
     tt = request.json
     if tt['light']:
         status['light_status2'] = 1
-        print(status['light_status2'])
     else:
         status['light_status2'] = 0
     return 'oka'

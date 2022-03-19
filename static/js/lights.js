@@ -41,6 +41,14 @@ function changeLightOn(event) {
 
 function changeAuto(event) {
     if (event.target.closest("input[name='auto']")) {
+        if (event.target.checked) {
+            $("input[name='light']")[+event.target.id - 1].style.pointerEvents = "none";
+            $("input[name='light']")[+event.target.id - 1].style.opacity = 0.5;
+        }
+        else {
+            $("input[name='light']")[+event.target.id - 1].style.pointerEvents = "auto";
+            $("input[name='light']")[+event.target.id - 1].style.opacity = 1;
+        }
         $.ajax({
             url: "/change_auto" + event.target.id,
             type: "POST",
@@ -76,6 +84,22 @@ function gett() {
             $("input[name='light']")[1].checked = response['light_status2'];
             $("input[name='auto']")[0].checked = response['auto_light1'];
             $("input[name='auto']")[1].checked = response['auto_light2'];
+            if (response['auto_light1'] == 1) {
+                $("input[name='light']")[0].style.pointerEvents = "none";
+                $("input[name='light']")[0].style.opacity = 0.5;
+            }
+            else {
+                $("input[name='light']")[0].style.pointerEvents = "auto";
+                $("input[name='light']")[0].style.opacity = 1;
+            }
+            if (response['auto_light2'] == 1) {
+                $("input[name='light']")[1].style.pointerEvents = "none";
+                $("input[name='light']")[1].style.opacity = 0.5;
+            }
+            else {
+                $("input[name='light']")[1].style.pointerEvents = "auto";
+                $("input[name='light']")[1].style.opacity = 1;
+            }
         },
         error: function (xhr) {
             //Do Something to handle error

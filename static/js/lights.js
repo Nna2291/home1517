@@ -72,8 +72,8 @@ function gett() {
             $('input[type=color]')[1].value = rgbToHex(response['red2'], response['green2'], response['blue2']);
             colorButton[0].style.background = rgbToHex(response['red1'], response['green1'], response['blue1']);
             colorButton[1].style.background = rgbToHex(response['red2'], response['green2'], response['blue2']);
-            $("input[name='light']")[0].checked = response['lights1'];
-            $("input[name='light']")[1].checked = response['lights2'];
+            $("input[name='light']")[0].checked = response['light_status1'];
+            $("input[name='light']")[1].checked = response['light_status2'];
             $("input[name='auto']")[0].checked = response['auto_light1'];
             $("input[name='auto']")[1].checked = response['auto_light2'];
         },

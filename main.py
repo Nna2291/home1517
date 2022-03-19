@@ -6,8 +6,9 @@ from flask import request
 app = Flask(__name__)
 queue = []
 temp_history = []
-status = {'vent': 1, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 25, 'lights1': 0, 'lights2': 0,
-          'red1': 0, 'green1': 0, 'blue1': 0, 'red2': 0, 'green2': 0, 'blue2': 0, 'light_val': 0, 'light_status': 0, 'door': 0}
+status = {'vent': 1, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 25,
+          'red1': 0, 'green1': 0, 'blue1': 0, 'red2': 0, 'green2': 0, 'blue2': 0, 'light_val': 0, 'light_status1': 0,
+          'light_status2': 0, 'door': 0}
 
 
 @app.route('/')
@@ -72,6 +73,7 @@ def colch1():
     status['green1'] = tt['g']
     return 'oka'
 
+
 @app.route('/change_color2', methods=["POST"])
 def colch2():
     tt = request.json
@@ -85,18 +87,19 @@ def colch2():
 def change_light1():
     tt = request.json
     if tt['light']:
-        status['lights1'] = 1
+        status['light_status1'] = 1
     else:
-        status['lights1'] = 0
+        status['light_status1'] = 0
     return 'oka'
+
 
 @app.route('/change_light2', methods=["POST"])
 def change_light2():
     tt = request.json
     if tt['light']:
-        status['lights2'] = 1
+        status['light_status2'] = 1
     else:
-        status['lights2'] = 0
+        status['light_status2'] = 0
     return 'oka'
 
 
@@ -108,6 +111,7 @@ def change_auto1():
     else:
         status['auto_light1'] = 0
     return 'oka'
+
 
 @app.route('/change_auto2', methods=["POST"])
 def change_auto2():
@@ -129,11 +133,11 @@ def second_floor():
     try:
         status['hum'] = float(hum)
         status['temp'] = float(temp)
-        status['light_status'] = int(light_status)
+        status['light_status2'] = int(light_status)
     except ValueError:
         status['hum'] = 0
         status['temp'] = 0
-        status['light_status'] = 0
+        status['light_status2'] = 0
     return jsonify(status)
 
 

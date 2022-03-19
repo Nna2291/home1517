@@ -18,8 +18,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 const char *ssid = "sch1517";       // имя вашей wifi точки доступа
 const char *password = "Gfhjvyfz "; // пароль wifi
-const IPAddress host(176, 119, 157, 37);
-const int httpPort = 80;
+const IPAddress host(172, 16, 101, 176);
+const int httpPort = 5000;
 DynamicJsonDocument doc(1024);
 
 void setup()
@@ -54,7 +54,7 @@ void loop()
   float temp = dht.readTemperature();
   Serial.println(hum);
   Serial.println(temp);
-  client.print("GET /second_floor?light_val=" + String(light_val) + "&hum=" + String(hum, 2) + "&temp=" + String(temp, 2) + "&ls=" + String(light_status) + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
+  client.print("GET /second_floor?light_val=" + String(light_val) + "&hum=" + String(hum, 2) + "&temp=" + String(temp, 2) + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
   unsigned long timeout = millis();
   while (client.available() == 0)
   {
@@ -81,16 +81,16 @@ void loop()
   int red = doc["red2"];
   int green = doc["green2"];
   int blue = doc["blue2"];
-  int auto_light = doc["auto_light2"];
-  int light_status = doc["light_status2"];
-  int vent_status = doc["vent"];
-  int heat_status = doc["heat"];
+  auto_light = doc["auto_light2"];
+  light_status = doc["light_status2"];
+  vent_status = doc["vent"];
+  heat_status = doc["heat"];
 
   vent(vent_status);
 
   heat(heat_status);
 
-  light_status = lights(red, green, blue, light_status, auto_light);
+  lights(red, green, blue, light_status, auto_light);
 }
 
 void heat(int h_s) {
@@ -136,5 +136,5 @@ void lights(int r, int g, int b, int l_s, int a_l)
   Wire.write(b);
   Wire.write(l_s);
   Wire.endTransmission();
-  return l_s;
+  return;
 }

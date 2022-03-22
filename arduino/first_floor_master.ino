@@ -4,8 +4,8 @@
 
 const char *ssid = "sch1517";       // имя вашей wifi точки доступа
 const char *password = "Gfhjvyfz "; // пароль wifi
-const IPAddress host(172, 16, 103, 1);
-const int httpPort = 5000;
+const IPAddress host(176, 119, 157, 37);
+const int httpPort = 80;
 DynamicJsonDocument doc(1024);
 
 int auto_light = 0;
@@ -38,7 +38,7 @@ void loop() {
     Serial.println("connection failed");
     return;
   }
-  client.print(String("GET /first_floor" + "\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n"));
+  client.print(String("GET /first_floor\r\nHost: " + String(host) + "\r\nConnection: close\r\n\r\n"));
 
   unsigned long timeout = millis();
 
@@ -61,6 +61,9 @@ void loop() {
   }
   String a = c.substring(c.indexOf('{'));
   deserializeJson(doc, a);
+
+  Serial.println(a);
+
   int red = doc["red1"];
   int green = doc["green1"];
   int blue = doc["blue1"];
@@ -68,7 +71,7 @@ void loop() {
   int light_status = doc["light_status1"];
   int light_val = doc["light_val"];
 
-  lights(red, green, blue, light_status, auto_light);
+  lights(red, green, blue, light_status, auto_light, light_val);
 }
 
 

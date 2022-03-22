@@ -42,6 +42,14 @@ function changeLightOn(event) {
 function changeAuto(event) {
     if (event.target.closest("input[name='auto']")) {
         if (event.target.checked) {
+            $("input[name='light']")[+event.target.id - 1].checked = false
+            $.ajax({
+                url: "/change_light" + event.target.id,
+                type: "POST",
+                data: JSON.stringify({light: false}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+            });
             $("input[name='light']")[+event.target.id - 1].style.pointerEvents = "none";
             $("input[name='light']")[+event.target.id - 1].style.opacity = 0.5;
         }

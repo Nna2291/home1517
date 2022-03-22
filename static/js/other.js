@@ -20,7 +20,7 @@ function changeCool(event) {
         $.ajax({
             url: "/cool",
             type: "POST",
-            data: JSON.stringify({heat: $('#cool').prop('checked')}),
+            data: JSON.stringify({cool: $('#cool').prop('checked')}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
         });

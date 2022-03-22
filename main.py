@@ -6,7 +6,7 @@ from flask import request
 app = Flask(__name__)
 queue = []
 temp_history = []
-status = {'vent': 0, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 25,
+status = {'vent': 0, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 25, 'auto_heat': 1,
           'red1': 0, 'green1': 0, 'blue1': 0, 'red2': 0, 'green2': 0, 'blue2': 0, 'light_val': 0, 'light_status1': 0,
           'light_status2': 0, 'door': 0}
 
@@ -58,6 +58,17 @@ def light():
 @app.route('/other')
 def other():
     return render_template('other.html')
+
+
+@app.route('/auto_heat', methods=["POST"])
+def auto_heat():
+    tt = request.json
+    if tt['auto_heat']:
+        status['auto_heat'] = 1
+    else:
+        status['auto_heat'] = 0
+    status['temp_limit'] = tt['temp_limit']
+    return 'oka'
 
 
 @app.route('/get_data')

@@ -334,3 +334,19 @@ div.value {
 div.preferences.other {
     display: block;
 }
+
+input[type=text] {
+  background: #1E1E23;
+  border: solid .1rem #2E2E36;
+  margin-left: 1rem;
+  width: 4rem;
+  height: 2rem;
+  color: #CCC;
+  padding: 0 .5rem 0 .5rem;
+  border-radius: 1rem;
+}
+
+input[type=text]:focus {
+  box-shadow: #CCC 0 0 .3rem .1rem;
+  border-color: #CCC;
+}

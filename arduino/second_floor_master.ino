@@ -3,9 +3,6 @@
 #include <ArduinoJson.h>
 #include <DHT.h>
 
-int motorPin = 12;
-int heatPin = 13;
-
 int auto_light = 0;
 int light_val = 0;
 int light_status = 0;
@@ -18,8 +15,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 const char *ssid = "sch1517";       // имя вашей wifi точки доступа
 const char *password = "Gfhjvyfz "; // пароль wifi
-const IPAddress host(172, 16, 101, 176);
-const int httpPort = 5000;
+const IPAddress host(176, 119, 157, 37);
+const int httpPort = 80;
 DynamicJsonDocument doc(1024);
 
 void setup()
@@ -28,8 +25,6 @@ void setup()
   Serial.begin(9600);
   dht.begin();
 
-  pinMode(motorPin, OUTPUT);
-  pinMode(heatPin, OUTPUT);
   pinMode(A0, INPUT);
 
   WiFi.mode(WIFI_STA);
@@ -86,38 +81,11 @@ void loop()
   vent_status = doc["vent"];
   heat_status = doc["heat"];
 
-  vent(vent_status);
-
-  heat(heat_status);
-
-  lights(red, green, blue, light_status, auto_light);
-}
-
-void heat(int h_s) {
-  if (h_s == 1)
-  {
-    digitalWrite(13, HIGH);
-  }
-  else
-  {
-    digitalWrite(13, LOW);
-  }
-}
-
-void vent(int v_s)
-{
-  if (v_s == 1)
-  {
-    digitalWrite(12, HIGH);
-  }
-  else
-  {
-    digitalWrite(12, LOW);
-  }
+  to_slave(red, green, blue, light_status, auto_light, vent_status, heat_status);
 }
 
 
-void lights(int r, int g, int b, int l_s, int a_l)
+void to_slave(int r, int g, int b, int l_s, int a_l, int v_s, int h_s)
 {
   light_val = analogRead(A0);
   if (a_l == 1)
@@ -135,6 +103,8 @@ void lights(int r, int g, int b, int l_s, int a_l)
   Wire.write(g);
   Wire.write(b);
   Wire.write(l_s);
+  Wire.write(v_s);
+  Wire.write(h_s);
   Wire.endTransmission();
   return;
 }

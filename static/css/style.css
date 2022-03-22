@@ -96,6 +96,7 @@ div.title {
   margin: 0 auto 0 auto;
   border-bottom-left-radius: 3rem;
   border-bottom-right-radius: 3rem;
+  max-width: 50vw;
 }
 
 div.preferences {
@@ -103,8 +104,66 @@ div.preferences {
   margin-top: 1rem;
   padding: 2rem;
   border-radius: 3rem;
+  justify-content: space-around;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+
+div.light {
+  margin: 1rem;
+}
+
+div.door {
+  margin: 1rem;
+}
+
+div.other {
+  margin: 1rem;
+}
+
+@media screen and (orientation:portrait) {
+  html {
+    font-size: 1.2vh;
+    color: #CCC;
+  }
+  header {
+    width: 80%;
+  }
+  div.floors {
+    padding: 2rem 0 2rem 2rem;
+  }
+  div.floor_preferences {
+    width: 80%;
+  }
+  div.auto_light h4 {
+    width: 16rem;
+  }
+  div.preferences.door h3 {
+    font-size: 1rem;
+  }
+  div.door_condition h4 {
+    margin-left: 2rem;
+  }
+}
+@media screen and (orientation:landscape) {
+  html {
+    font-size: 1.2vw;
+    color: #CCC;
+  }
+  header {
+    width: 60%;
+  }
+  div.floors {
+    padding: 2rem;
+  }
+  div.floor_preferences {
+    width: 50%;
+  }
+  div.door_condition h4 {
+    margin-left: 2rem;
+  }
 }
 
 button {
@@ -150,7 +209,6 @@ div.floors {
   flex-direction: column;
   justify-content: space-between;
   background-color: #24242A;
-  padding: 2rem;
   border-radius: 3rem;
 }
 
@@ -158,6 +216,7 @@ div.floor {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 div.floor:nth-child(2) {
@@ -178,10 +237,6 @@ div.scheme h4 {
 div.scheme img {
   width: 9rem;
   height: 9rem;
-}
-
-div.floor_preferences {
-  width: 50%;
 }
 
 div.floors h4 {
@@ -286,7 +341,6 @@ div.open_door {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-right: 3rem;
 }
 
 button.open_door {

@@ -1,1 +1,72 @@
-<!DOCTYPE html><html lang="ru" dir="ltr"><head> <meta charset="utf-8"> <link rel="stylesheet" href="../static/css/style.css"> <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <script type="text/javascript" src="../static/js/jquery.min.js"></script> <title>PredProf SmartHouse</title></head><body><div class="main"> <div class="container"> <header> <a href="/" class="back"> <img src="../static/img/arrow.png" alt="Image Not Found" class="back"> <h4>Назад</h4> </a> <a href="/"> <h1>PredProf SmartHouse</h1> </a> </header> <div class="title"> <h2>Другие устройства</h2> </div> <div class="preferences other"> <div class="option"> <h4>Температура</h4> <div class="value"> <h3 id="temp">21</h3> <h3>°C</h3> </div> </div> <div class="option"> <h4>Влажность</h4> <div class="value"> <h3 id="hum">55</h3> <h3>%</h3> </div> </div> <!-- <div class="option"> <h4>Влажность</h4> <div class="value"> <h3>55</h3> <h3>%</h3> </div> </div> --> <br><br><br> <div class="option"> <h4>Автоматический обогрев (°C)</h4> <div class="value"> <input type="checkbox" name="auto_heat" class="toggle"> <input type="text" name="auto_heat"> </div> </div> <div class="option"> <h4>Обогрев</h4> <div class="value"> <input type="checkbox" id="heat" class="toggle"> </div> </div> <div class="option"> <h4>Охлаждение</h4> <div class="value"> <input type="checkbox" id="cool" class="toggle"> </div> </div> </div> </div> <script src="../static/js/other.js"></script> <script src="../static/js/get_data.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <title>PredProf SmartHouse</title>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <header>
+            <a href="/" class="back">
+                <img src="../static/img/arrow.png" alt="Image Not Found" class="back">
+                <h4>Назад</h4>
+            </a>
+            <a href="/">
+                <h1>PredProf SmartHouse</h1>
+            </a>
+        </header>
+        <div class="title">
+            <h2>Другие устройства</h2>
+        </div>
+        <div class="preferences other">
+            <div class="option">
+                <h4>Температура</h4>
+                <div class="value">
+                    <h3 id="temp">21</h3>
+                    <h3>°C</h3>
+                </div>
+            </div>
+            <div class="option">
+                <h4>Влажность</h4>
+                <div class="value">
+                    <h3 id="hum">55</h3>
+                    <h3>%</h3>
+                </div>
+            </div>
+            <!-- <div class="option">
+                <h4>Влажность</h4>
+                <div class="value">
+                    <h3>55</h3>
+                    <h3>%</h3>
+                </div>
+            </div> -->
+            <br><br><br>
+            <div class="option">
+                <h4>Автоматический обогрев (°C)</h4>
+                <div class="value">
+                    <input type="checkbox" name="auto_heat" class="toggle">
+                    <input type="text" name="auto_heat">
+                </div>
+            </div>
+            <div class="option">
+                <h4>Обогрев</h4>
+                <div class="value">
+                    <input type="checkbox" id="heat" class="toggle">
+                </div>
+            </div>
+            <div class="option">
+                <h4>Охлаждение</h4>
+                <div class="value">
+                    <input type="checkbox" id="cool" class="toggle">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/other.js"></script>
+    <script src="../static/js/get_data.js"></script>
+</body>
+</html>

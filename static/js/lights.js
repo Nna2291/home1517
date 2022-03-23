@@ -1,1 +1,118 @@
-const colorButton=document.querySelectorAll("button.choose_color");function printColor(t){return{r:parseInt(t.substr(1,2),16),g:parseInt(t.substr(3,2),16),b:parseInt(t.substr(5,2),16)}}function changeColor(t){t.target.closest("input[type='color']")&&(colorButton[+t.target.id-1].style.background=t.target.value,$.ajax({url:"/change_color"+t.target.id,type:"POST",data:JSON.stringify(printColor(t.target.value)),contentType:"application/json; charset=utf-8",dataType:"json"}))}function changeLightOn(t){t.target.closest("input[name='light']")&&$.ajax({url:"/change_light"+t.target.id,type:"POST",data:JSON.stringify({light:t.target.checked}),contentType:"application/json; charset=utf-8",dataType:"json"})}function changeAuto(t){t.target.closest("input[name='auto']")&&(t.target.checked?($("input[name='light']")[+t.target.id-1].checked=!1,$.ajax({url:"/change_light"+t.target.id,type:"POST",data:JSON.stringify({light:!1}),contentType:"application/json; charset=utf-8",dataType:"json"}),$("input[name='light']")[+t.target.id-1].style.pointerEvents="none",$("input[name='light']")[+t.target.id-1].style.opacity=.5):($("input[name='light']")[+t.target.id-1].style.pointerEvents="auto",$("input[name='light']")[+t.target.id-1].style.opacity=1),$.ajax({url:"/change_auto"+t.target.id,type:"POST",data:JSON.stringify({auto:t.target.checked}),contentType:"application/json; charset=utf-8",dataType:"json"}))}function componentToHex(t){t=t.toString(16);return 1==t.length?"0"+t:t}function rgbToHex(t,e,n){return"#"+componentToHex(t)+componentToHex(e)+componentToHex(n)}function gett(){$.ajax({url:"/get_data",type:"get",success:function(t){$("input[type=color]")[0].value=rgbToHex(t.red1,t.green1,t.blue1),$("input[type=color]")[1].value=rgbToHex(t.red2,t.green2,t.blue2),colorButton[0].style.background=rgbToHex(t.red1,t.green1,t.blue1),colorButton[1].style.background=rgbToHex(t.red2,t.green2,t.blue2),$("input[name='light']")[0].checked=t.light_status1,$("input[name='light']")[1].checked=t.light_status2,$("input[name='auto']")[0].checked=t.auto_light1,$("input[name='auto']")[1].checked=t.auto_light2,1==t.auto_light1?($("input[name='light']")[0].style.pointerEvents="none",$("input[name='light']")[0].style.opacity=.5):($("input[name='light']")[0].style.pointerEvents="auto",$("input[name='light']")[0].style.opacity=1),1==t.auto_light2?($("input[name='light']")[1].style.pointerEvents="none",$("input[name='light']")[1].style.opacity=.5):($("input[name='light']")[1].style.pointerEvents="auto",$("input[name='light']")[1].style.opacity=1)},error:function(t){}})}document.addEventListener("change",changeColor),document.addEventListener("change",changeLightOn),document.addEventListener("change",changeAuto),colorButton[0].style.background=document.querySelectorAll("input[type='color']")[0].value,colorButton[1].style.background=document.querySelectorAll("input[type='color']")[1].value,gett();
+const colorButton = document.querySelectorAll("button.choose_color");
+
+document.addEventListener('change', changeColor);
+document.addEventListener('change', changeLightOn);
+document.addEventListener('change', changeAuto);
+
+colorButton[0].style.background = document.querySelectorAll("input[type='color']")[0].value;
+colorButton[1].style.background = document.querySelectorAll("input[type='color']")[1].value;
+
+function printColor(color) {
+    const r = parseInt(color.substr(1, 2), 16);
+    const g = parseInt(color.substr(3, 2), 16);
+    const b = parseInt(color.substr(5, 2), 16);
+    return {r, g, b}
+}
+
+function changeColor(event) {
+    if (event.target.closest("input[type='color']")) {
+        colorButton[+event.target.id - 1].style.background = event.target.value;
+        $.ajax({
+            url: "/change_color" + event.target.id,
+            type: "POST",
+            data: JSON.stringify(printColor(event.target.value)),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        });
+    }
+}
+
+function changeLightOn(event) {
+    if (event.target.closest("input[name='light']")) {
+        $.ajax({
+            url: "/change_light" + event.target.id,
+            type: "POST",
+            data: JSON.stringify({light: event.target.checked}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        });
+    }
+}
+
+function changeAuto(event) {
+    if (event.target.closest("input[name='auto']")) {
+        if (event.target.checked) {
+            $("input[name='light']")[+event.target.id - 1].checked = false
+            $.ajax({
+                url: "/change_light" + event.target.id,
+                type: "POST",
+                data: JSON.stringify({light: false}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+            });
+            $("input[name='light']")[+event.target.id - 1].style.pointerEvents = "none";
+            $("input[name='light']")[+event.target.id - 1].style.opacity = 0.5;
+        }
+        else {
+            $("input[name='light']")[+event.target.id - 1].style.pointerEvents = "auto";
+            $("input[name='light']")[+event.target.id - 1].style.opacity = 1;
+        }
+        $.ajax({
+            url: "/change_auto" + event.target.id,
+            type: "POST",
+            data: JSON.stringify({auto: event.target.checked}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        });
+    }
+}
+
+
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+
+function rgbToHex(r, g, b) {
+return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function gett() {
+    $.ajax({
+        url: "/get_data",
+        type: "get",
+
+        success: function (response) {
+            $('input[type=color]')[0].value = rgbToHex(response['red1'], response['green1'], response['blue1']);
+            $('input[type=color]')[1].value = rgbToHex(response['red2'], response['green2'], response['blue2']);
+            colorButton[0].style.background = rgbToHex(response['red1'], response['green1'], response['blue1']);
+            colorButton[1].style.background = rgbToHex(response['red2'], response['green2'], response['blue2']);
+            $("input[name='light']")[0].checked = response['light_status1'];
+            $("input[name='light']")[1].checked = response['light_status2'];
+            $("input[name='auto']")[0].checked = response['auto_light1'];
+            $("input[name='auto']")[1].checked = response['auto_light2'];
+            if (response['auto_light1'] == 1) {
+                $("input[name='light']")[0].style.pointerEvents = "none";
+                $("input[name='light']")[0].style.opacity = 0.5;
+            }
+            else {
+                $("input[name='light']")[0].style.pointerEvents = "auto";
+                $("input[name='light']")[0].style.opacity = 1;
+            }
+            if (response['auto_light2'] == 1) {
+                $("input[name='light']")[1].style.pointerEvents = "none";
+                $("input[name='light']")[1].style.opacity = 0.5;
+            }
+            else {
+                $("input[name='light']")[1].style.pointerEvents = "auto";
+                $("input[name='light']")[1].style.opacity = 1;
+            }
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+    });
+}
+
+gett();

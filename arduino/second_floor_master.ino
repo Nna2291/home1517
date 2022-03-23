@@ -80,6 +80,22 @@ void loop()
   light_status = doc["light_status2"];
   vent_status = doc["vent"];
   heat_status = doc["heat"];
+  int auto_heat = doc["auto_heat"];
+  int temp_auto = doc["temp_auto"];
+  if (auto_heat) {
+    if (temp < temp_auto) {
+      vent_status = 0;
+      heat_status = 1;
+    }
+    else if (temp_auto <= temp && temp < temp_auto + 1) {
+      vent_status = 0;
+      heat_status = 0;
+    }
+    else {
+      vent_status = 1;
+      heat_status = 0;
+    }
+  }
 
   to_slave(red, green, blue, light_status, auto_light, vent_status, heat_status);
 }

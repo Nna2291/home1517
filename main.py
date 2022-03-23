@@ -6,9 +6,12 @@ from flask import request
 app = Flask(__name__)
 queue = []
 temp_history = []
-status = {'vent': 0, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0, 'hum': -1.0, 'temp_limit': 25, 'auto_heat': 1,
-          'red1': 0, 'green1': 0, 'blue1': 0, 'red2': 0, 'green2': 0, 'blue2': 0, 'light_val': 0, 'light_status1': 0,
-          'light_status2': 0, 'door': 0}
+status = {
+    'vent': 0, 'heat': 0, 'auto_light1': 0, 'auto_light2': 0, 'temp': -1.0,
+    'hum': -1.0, 'temp_limit': 30, 'temp_auto': 25, 'auto_heat': 0, 'red1': 0,
+    'green1': 0, 'blue1': 0, 'red2': 0, 'green2': 0, 'blue2': 0,
+    'light_val': 0, 'light_status1': 0, 'light_status2': 0, 'door': 0
+}
 
 
 @app.route('/')
@@ -67,6 +70,13 @@ def auto_heat():
         status['auto_heat'] = 1
     else:
         status['auto_heat'] = 0
+    status['temp_auto'] = tt['temp_auto']
+    return 'oka'
+
+
+@app.route('/temp_limit', methods=["POST"])
+def temp_limit():
+    tt = request.json
     status['temp_limit'] = tt['temp_limit']
     return 'oka'
 
@@ -168,7 +178,7 @@ def temp_and_hum():
         temp, hum = float(request.form['temp']), float(request.form['hum'])
         if len(temp_history) >= 4:
             temp_history = [temp] + temp_history[:3]
-            if temp_history[-1] - temp > 5 and temp > status['temp_limit']:
+            if temp_history[-1] - temp > 5 and temp > status['temp_auto']:
                 pass
         status['temp'] = temp
         status['hum'] = hum

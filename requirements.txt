@@ -6,3 +6,6 @@ MarkupSafe==2.0.1
 Werkzeug==2.0.3
 
 Frozen-Flask~=0.18
+WTForms~=3.0.1
+peewee~=3.14.10
+python-dotenv~=0.19.2

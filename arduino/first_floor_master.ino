@@ -12,7 +12,6 @@ int auto_light = 0;
 int light_val = 0;
 int light_status = 0;
 
-
 void setup() {
   Serial.begin(115200);
   Serial.print("Connecting to ");
@@ -62,7 +61,7 @@ void loop() {
   String a = c.substring(c.indexOf('{'));
   deserializeJson(doc, a);
 
-  Serial.println(a);
+//  Serial.println(a);
 
   int red = doc["red1"];
   int green = doc["green1"];
@@ -70,12 +69,13 @@ void loop() {
   int auto_light = doc["auto_light1"];
   int light_status = doc["light_status1"];
   int light_val = doc["light_val"];
+  int door = doc["door"];
 
-  lights(red, green, blue, light_status, auto_light, light_val);
+  lights(red, green, blue, light_status, auto_light, light_val, door);
 }
 
 
-void lights(int r, int g, int b, int l_s, int a_l, int l_v)
+void lights(int r, int g, int b, int l_s, int a_l, int l_v, int d_s)
 {
   if (a_l == 1)
   {
@@ -91,5 +91,6 @@ void lights(int r, int g, int b, int l_s, int a_l, int l_v)
   Wire.write(g);
   Wire.write(b);
   Wire.write(l_s);
+  Wire.write(d_s);
   Wire.endTransmission();
 }
